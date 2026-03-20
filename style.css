@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff5f8;
+    font-family: 'Arial Black', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.main-container {
+    width: 95%;
+    max-width: 800px;
+    text-align: center;
+    padding: 20px;
+}
+
+.greetings {
+    font-size: 3.5rem;
+    color: #ff4081;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0px #fff;
+}
+
+/* Foto del Mapache */
+.main-photo {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 25px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 10px solid white;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* Collage de Gatitos */
+.gatos-collage {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.photo-card {
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 6px solid white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: transform 0.4s ease;
+}
+
+.photo-card:hover { transform: translateY(-10px) rotate(3deg); }
+
+.img-content { width: 100%; height: 100%; object-fit: cover; }
+
+/* FRASE CON MUCHA PRESENCIA */
+.description-highlight {
+    font-size: 2rem;
+    color: #ff4081;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    line-height: 1.2;
+    /* Contorno Blanco Grueso */
+    text-shadow: 
+        -3px -3px 0 #fff,  
+         3px -3px 0 #fff,
+        -3px  3px 0 #fff,
+         3px  3px 0 #fff,
+         0px 10px 20px rgba(255, 64, 129, 0.4);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 20px 50px;
+    background: linear-gradient(45deg, #ffd700, #ffb300);
+    color: #333;
+    text-decoration: none;
+    border-radius: 60px;
+    font-weight: 900;
+    font-size: 1.3rem;
+    border: 4px solid white;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+    transition: 0.3s;
+}
+
+.btn-primary:hover { transform: scale(1.1); background: #ff4081; color: white; }

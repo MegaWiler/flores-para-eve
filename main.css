@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+    font-family: 'Arial Black', sans-serif;
+}
+
+#video-fondo {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: -1;
+}
+
+#lyrics-container {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%; text-align: center;
+    z-index: 100;
+}
+
+.lyrics-line {
+    font-size: 2.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.05);
+    background-image: linear-gradient(to bottom, #bd00ff, #ff00c8, #00d4ff);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.8));
+    animation: karaoke-fill linear forwards;
+    display: inline-block;
+}
+
+@keyframes karaoke-fill { to { background-size: 100% 100%; } }
+
+/* PÉTALOS AMARILLOS QUE CAEN */
+.petal {
+    position: absolute;
+    top: -20px;
+    background-color: #ffeb3b;
+    width: 14px; height: 14px;
+    border-radius: 150% 0 150% 0;
+    z-index: 50;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 5px rgba(255, 235, 59, 0.7));
+    animation: caida-vertical linear forwards;
+}
+
+@keyframes caida-vertical {
+    0% { transform: translateY(0) rotate(0deg) translateX(0); }
+    100% { transform: translateY(105vh) rotate(360deg) translateX(15px); }
+}
+
+#mensaje-despedida {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; text-align: center;
+    opacity: 0; z-index: 200;
+    transition: opacity 3s ease-in-out;
+}
+
+@media (max-width: 600px) {
+    .lyrics-line { font-size: 1.8rem; }
+}
