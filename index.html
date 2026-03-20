@@ -5,28 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Eve ❤️</title>
     <style>
-        /* CSS INTEGRADO */
         body { margin: 0; padding: 0; overflow: hidden; background-color: #000; font-family: 'Arial Black', sans-serif; }
-        #portada { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 500; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1.5s ease; }
+        
+        /* PORTADA */
+        #portada { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 500; background: #000; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            transition: opacity 1.5s ease; 
+        }
         #img-portada { width: 100%; height: 100%; object-fit: cover; position: absolute; }
-        #boton-comenzar { position: relative; z-index: 501; padding: 15px 30px; font-size: 1.2rem; background: rgba(189, 0, 255, 0.8); color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px rgba(189, 0, 255, 0.6); }
+        
+        #boton-comenzar { 
+            position: relative; z-index: 501; 
+            padding: 20px 40px; font-size: 1.5rem; 
+            background: rgba(189, 0, 255, 0.9); color: white; 
+            border: none; border-radius: 50px; cursor: pointer; 
+            box-shadow: 0 0 30px rgba(189, 0, 255, 0.8);
+            font-weight: bold;
+        }
+
         #video-fondo { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+        
+        /* LETRAS VIOLETAS */
         #lyrics-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center; z-index: 100; }
-        .lyrics-line { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; color: rgba(255, 255, 255, 0.1); background-image: linear-gradient(to bottom, #bd00ff, #ff00c8, #00d4ff); background-repeat: no-repeat; background-size: 0% 100%; -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.9)); animation: karaoke-fill linear forwards; display: inline-block; line-height: 1.2; }
+        .lyrics-line { 
+            font-size: 2.8rem; font-weight: 900; text-transform: uppercase; 
+            color: rgba(255, 255, 255, 0.1); 
+            background-image: linear-gradient(to bottom, #bd00ff, #ff00c8, #00d4ff); 
+            background-repeat: no-repeat; background-size: 0% 100%; 
+            -webkit-background-clip: text; background-clip: text; 
+            filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.9)); 
+            animation: karaoke-fill linear forwards; 
+            display: inline-block; line-height: 1.2; 
+        }
         @keyframes karaoke-fill { to { background-size: 100% 100%; } }
+
+        /* PÉTALOS */
         .petal { position: absolute; top: -50px; background-color: #ffeb3b; width: 14px; height: 14px; border-radius: 150% 0 150% 0; z-index: 50; opacity: 0.9; filter: drop-shadow(0 0 5px rgba(255, 235, 59, 0.8)); animation: caida-fluida linear forwards; }
         @keyframes caida-fluida { 0% { transform: translateY(0) rotate(0deg) translateX(0); } 100% { transform: translateY(110vh) rotate(360deg) translateX(20px); } }
+
         #mensaje-despedida { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; opacity: 0; z-index: 200; transition: opacity 3s ease; pointer-events: none; }
-        #mensaje-despedida h2 { font-size: 2.2rem; color: #ffeb3b; }
-        @media (max-width: 600px) { .lyrics-line { font-size: 1.5rem; } }
+        #mensaje-despedida h2 { font-size: 2.5rem; color: #ffeb3b; }
+        
+        @media (max-width: 600px) { .lyrics-line { font-size: 1.7rem; } }
     </style>
 </head>
 <body>
 
     <div id="portada">
-        <!-- IMPORTANTE: Asegúrate de subir un archivo llamado portada.jpg a GitHub -->
-        <img src="portada.jpg" alt="Portada" id="img-portada">
-        <button id="boton-comenzar">Presiona aquí ❤️</button>
+        <!-- HE CAMBIADO EL NOMBRE A "mapache flor.jpg" QUE ES EL QUE TIENES EN TU GITHUB -->
+        <img src="mapache flor.jpg" alt="Portada" id="img-portada">
+        <button id="boton-comenzar">PRESIONA AQUÍ, EVE ❤️</button>
     </div>
 
     <video id="video-fondo" muted loop playsinline>
@@ -43,7 +73,6 @@
     <audio id="miMusica" src="tracker.mp3"></audio>
 
     <script>
-        // JS INTEGRADO
         const audio = document.getElementById("miMusica");
         const video = document.getElementById("video-fondo");
         const container = document.getElementById("lyrics-container");
