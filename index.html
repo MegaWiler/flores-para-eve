@@ -3,34 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Para Eve ❤️</title>
     <style>
-        /* Estilos básicos para que las letras y pétalos se vean */
-        body { margin: 0; padding: 0; overflow: hidden; background-color: #000; }
-        #video-fondo { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
-        #lyrics-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center; z-index: 100; }
-        
-        .lyrics-line { 
-            font-size: 2.5rem; font-family: 'Arial Black', sans-serif; text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.1); 
-            background-image: linear-gradient(to bottom, #bd00ff, #ff00c8, #00d4ff); 
-            background-repeat: no-repeat; background-size: 0% 100%; 
-            -webkit-background-clip: text; background-clip: text; 
-            filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.9)); 
-            animation: karaoke-fill linear forwards; 
-            display: inline-block;
+        /* ESTILOS DE LA PORTADA (DISEÑO ROSA) */
+        body {
+            margin: 0; padding: 0; overflow: hidden;
+            background-color: #fdf2f5;
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; text-align: center;
         }
+
+        #contenedor-portada {
+            z-index: 500; transition: opacity 1.5s ease;
+            width: 100%; max-width: 600px; padding: 20px;
+        }
+
+        h1 { color: #ff4081; font-size: 2.5rem; margin-bottom: 25px; }
+
+        .photo-frame {
+            background-color: white; border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            display: inline-block; margin: 10px; border: 5px solid white;
+            overflow: hidden;
+        }
+
+        .main-photo { width: 200px; height: 200px; }
+        .small-photos-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .small-photo { width: 100px; height: 100px; }
+        img { width: 100%; height: 100%; object-fit: cover; }
+
+        .description-highlight {
+            color: #ff4081; font-size: 1.2rem; font-weight: bold;
+            text-transform: uppercase; margin-bottom: 35px;
+        }
+
+        .btn-primary {
+            display: inline-block; padding: 15px 40px;
+            background-color: #ffc107; color: #333;
+            text-decoration: none; border-radius: 50px;
+            font-weight: bold; font-size: 1.1rem; cursor: pointer;
+            border: none; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+        }
+
+        /* ESTILOS DE LA CANCIÓN (VIOLETA Y NEÓN) */
+        #video-fondo { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            object-fit: cover; z-index: -1; display: none; 
+        }
+
+        #lyrics-container { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 90%; text-align: center; z-index: 100; display: none;
+        }
+
+        .lyrics-line { 
+            font-size: 2.5rem; font-weight: 900; text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.1);
+            background-image: linear-gradient(to bottom, #bd00ff, #ff00c8, #00d4ff);
+            background-repeat: no-repeat; background-size: 0% 100%;
+            -webkit-background-clip: text; background-clip: text;
+            filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.9));
+            animation: karaoke-fill linear forwards;
+        }
+
         @keyframes karaoke-fill { to { background-size: 100% 100%; } }
 
         .petal { position: absolute; top: -50px; background-color: #ffeb3b; width: 14px; height: 14px; border-radius: 150% 0 150% 0; z-index: 50; opacity: 0.9; animation: caida linear forwards; }
         @keyframes caida { to { transform: translateY(110vh) rotate(360deg); } }
 
-        #mensaje-despedida { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; opacity: 0; transition: opacity 3s; z-index: 200; font-family: sans-serif; }
+        #mensaje-despedida { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; opacity: 0; transition: opacity 3s; z-index: 200; display: none; }
     </style>
 </head>
 <body>
 
+    <!-- SECCIÓN 1: PORTADA (Lo que se ve al principio) -->
+    <div id="contenedor-portada">
+        <div class="greetings">
+            <h1>Hola!</h1>
+        </div>
+
+        <div class="photo-frame main-photo">
+            <img src="mapache flor.jpg" alt="Mapache">
+        </div>
+
+        <div class="small-photos-container">
+            <div class="photo-frame small-photo"><img src="gato 1.jpg" alt="Gato 1"></div>
+            <div class="photo-frame small-photo"><img src="gato 2.jpg" alt="Gato 2"></div>
+            <div class="photo-frame small-photo"><img src="gato 3.jpg" alt="Gato 3"></div>
+        </div>
+
+        <h2 class="description-highlight">ESTE PEQUEÑO DETALLE ES PARA TI, EVE :)</h2>
+        <button class="btn-primary" onclick="empezarRegalo()">PRESIONA AQUÍ</button>
+    </div>
+
+    <!-- SECCIÓN 2: CANCIÓN (Oculto al inicio) -->
     <video id="video-fondo" muted loop playsinline>
         <source src="fondovideo.mp4" type="video/mp4">
     </video>
@@ -47,6 +114,7 @@
         const audio = document.getElementById("miMusica");
         const video = document.getElementById("video-fondo");
         const container = document.getElementById("lyrics-container");
+        const portada = document.getElementById("contenedor-portada");
 
         const lyricsData = [
             { text: "She told me that she loved me by the water fountain", time: 13.8 },
@@ -105,12 +173,10 @@
                 const nextLine = lyricsData[i + 1];
                 return time >= line.time && (!nextLine || time < nextLine.time);
             });
-
             if (index !== -1) {
                 const currentLine = lyricsData[index];
                 const nextLine = lyricsData[index + 1];
                 const duration = nextLine ? (nextLine.time - currentLine.time) : 3.5;
-
                 if (container.getAttribute("data-index") !== index.toString()) {
                     container.innerHTML = `<p class="lyrics-line" style="animation-duration: ${duration}s">${currentLine.text}</p>`;
                     container.setAttribute("data-index", index);
@@ -118,17 +184,26 @@
             }
         }
 
-        function start() {
-            audio.play().catch(() => {});
-            video.play();
-            if (!window.petalInterval) window.petalInterval = setInterval(createPetal, 200);
+        function empezarRegalo() {
+            // Desaparece la portada rosa
+            portada.style.opacity = "0";
+            setTimeout(() => {
+                portada.style.display = "none";
+                // Aparecen los elementos de la canción
+                video.style.display = "block";
+                container.style.display = "block";
+                document.body.style.backgroundColor = "#000";
+                // Inicia música y video
+                audio.play();
+                video.play();
+                setInterval(createPetal, 200);
+            }, 1500);
         }
 
-        window.onload = start;
-        window.addEventListener("click", start, { once: true });
         audio.addEventListener("timeupdate", updateLyrics);
         audio.addEventListener("ended", () => {
-            document.getElementById("mensaje-despedida").style.opacity = "1";
+            document.getElementById("mensaje-despedida").style.display = "block";
+            setTimeout(() => { document.getElementById("mensaje-despedida").style.opacity = "1"; }, 100);
             container.style.display = "none";
         });
     </script>
