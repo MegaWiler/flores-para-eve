@@ -9,7 +9,7 @@
         body {
             margin: 0; padding: 0; overflow: hidden;
             background-color: #fdf2f5;
-            font-family: 'Arial Black', 'Comic Sans MS', sans-serif;
+            font-family: 'Arial Black', sans-serif;
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; text-align: center;
         }
@@ -36,20 +36,16 @@
         .description-highlight {
             color: #ff4081; font-size: 1.3rem; font-weight: 900;
             text-transform: uppercase; margin-bottom: 35px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .btn-primary {
             display: inline-block; padding: 18px 45px;
             background-color: #ffc107; color: #000;
-            text-decoration: none; border-radius: 50px;
-            font-weight: 900; font-size: 1.2rem; cursor: pointer;
-            border: none; box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
-            transition: 0.3s;
+            border-radius: 50px; font-weight: 900; font-size: 1.2rem; 
+            cursor: pointer; border: none; box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
         }
-        .btn-primary:hover { transform: scale(1.1); background-color: #ffca28; }
 
-        /* ESTILOS DE LA CANCIÓN - LETRA INTENSA */
+        /* ESTILOS DE LA CANCIÓN - KARAOKE INTENSO */
         #video-fondo { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             object-fit: cover; z-index: -1; display: none; 
@@ -61,19 +57,25 @@
         }
 
         .lyrics-line { 
-            font-size: 3.5rem; /* Más grande */
-            font-weight: 900; /* Máximo grosor */
+            font-size: 3.2rem; 
+            font-weight: 900; 
             text-transform: uppercase;
-            color: #fff;
-            /* Degradado con bordes nítidos */
-            background: linear-gradient(to bottom, #ffffff, #bd00ff, #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            /* EFECTO DE INTENSIDAD (GLOW) */
-            filter: drop-shadow(0 0 10px rgba(189, 0, 255, 0.8)) 
-                    drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
             line-height: 1.1;
-            padding: 10px;
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.15); /* Color base apagado */
+            background-image: linear-gradient(to bottom, #ffffff, #bd00ff, #00d4ff);
+            background-repeat: no-repeat;
+            background-size: 0% 100%; /* Inicia vacío para el efecto karaoke */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* Resplandor Neón constante */
+            filter: drop-shadow(0 0 12px rgba(189, 0, 255, 0.9));
+            animation: fill-animation linear forwards;
+        }
+
+        @keyframes fill-animation {
+            to { background-size: 100% 100%; }
         }
 
         .petal { position: absolute; top: -50px; background-color: #ffeb3b; width: 15px; height: 15px; border-radius: 150% 0 150% 0; z-index: 50; opacity: 0.9; animation: caida linear forwards; }
@@ -82,7 +84,7 @@
         #mensaje-despedida { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; opacity: 0; transition: opacity 3s; z-index: 200; display: none; font-weight: 900; }
         
         @media (max-width: 600px) {
-            .lyrics-line { font-size: 2rem; }
+            .lyrics-line { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -168,10 +170,15 @@
                 const nextLine = lyricsData[i + 1];
                 return time >= line.time && (!nextLine || time < nextLine.time);
             });
+
             if (index !== -1) {
                 const currentLine = lyricsData[index];
+                const nextLine = lyricsData[index + 1];
+                // Calculamos duración para el efecto karaoke
+                const duration = nextLine ? (nextLine.time - currentLine.time) : 3.5;
+
                 if (container.getAttribute("data-index") !== index.toString()) {
-                    container.innerHTML = `<p class="lyrics-line">${currentLine.text}</p>`;
+                    container.innerHTML = `<p class="lyrics-line" style="animation-duration: ${duration}s">${currentLine.text}</p>`;
                     container.setAttribute("data-index", index);
                 }
             }
