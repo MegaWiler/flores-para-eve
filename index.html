@@ -3,34 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="img/flowers.png" type="image/x-icon">
     <title>Para Eve ❤️</title>
+    <style>
+        /* CSS INTEGRADO */
+        body { margin: 0; padding: 0; overflow: hidden; background-color: #000; font-family: 'Arial Black', sans-serif; }
+        #portada { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 500; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1.5s ease; }
+        #img-portada { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+        #boton-comenzar { position: relative; z-index: 501; padding: 15px 30px; font-size: 1.2rem; background: rgba(189, 0, 255, 0.8); color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px rgba(189, 0, 255, 0.6); }
+        #video-fondo { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+        #lyrics-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center; z-index: 100; }
+        .lyrics-line { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; color: rgba(255, 255, 255, 0.1); background-image: linear-gradient(to bottom, #bd00ff, #ff00c8, #00d4ff); background-repeat: no-repeat; background-size: 0% 100%; -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 15px rgba(189, 0, 255, 0.9)); animation: karaoke-fill linear forwards; display: inline-block; line-height: 1.2; }
+        @keyframes karaoke-fill { to { background-size: 100% 100%; } }
+        .petal { position: absolute; top: -50px; background-color: #ffeb3b; width: 14px; height: 14px; border-radius: 150% 0 150% 0; z-index: 50; opacity: 0.9; filter: drop-shadow(0 0 5px rgba(255, 235, 59, 0.8)); animation: caida-fluida linear forwards; }
+        @keyframes caida-fluida { 0% { transform: translateY(0) rotate(0deg) translateX(0); } 100% { transform: translateY(110vh) rotate(360deg) translateX(20px); } }
+        #mensaje-despedida { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; opacity: 0; z-index: 200; transition: opacity 3s ease; pointer-events: none; }
+        #mensaje-despedida h2 { font-size: 2.2rem; color: #ffeb3b; }
+        @media (max-width: 600px) { .lyrics-line { font-size: 1.5rem; } }
+    </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Saludo Inicial -->
-        <div class="greetings">
-            <span class="letter">H</span><span class="letter">o</span><span class="letter">l</span><span class="letter">a</span><span class="letter">!</span>
-        </div>
 
-        <!-- Foto Principal: Mapache -->
-        <div class="image-wrapper main-photo">
-            <img src="img/mapache flor.jpg" alt="Mapache con flor" class="img-content">
-        </div>
-
-        <!-- Fotos Secundarias: Los 3 Gatos -->
-        <div class="gatos-collage">
-            <div class="photo-card"><img src="img/gato 1.jpg" alt="Gato 1" class="img-content"></div>
-            <div class="photo-card"><img src="img/gato 2.jpg" alt="Gato 2" class="img-content"></div>
-            <div class="photo-card"><img src="img/gato 3.jpg" alt="Gato 3" class="img-content"></div>
-        </div>
-
-        <!-- Texto con Presencia y Botón -->
-        <div class="content-footer">
-            <h2 class="description-highlight">ESTE PEQUEÑO DETALLE ES PARA TI, EVE :)</h2>
-            <a href="flower.html" class="btn-primary">PRESIONA AQUÍ</a>
-        </div>
+    <div id="portada">
+        <!-- IMPORTANTE: Asegúrate de subir un archivo llamado portada.jpg a GitHub -->
+        <img src="portada.jpg" alt="Portada" id="img-portada">
+        <button id="boton-comenzar">Presiona aquí ❤️</button>
     </div>
+
+    <video id="video-fondo" muted loop playsinline>
+        <source src="fondovideo.mp4" type="video/mp4">
+    </video>
+
+    <div id="lyrics-container"></div>
+
+    <div id="mensaje-despedida">
+        <h2>Gracias por ser parte de mi mundo.</h2>
+        <p>Espero que estas flores te hayan hecho sonreír. ❤️</p>
+    </div>
+
+    <audio id="miMusica" src="tracker.mp3"></audio>
+
+    <script>
+        // JS INTEGRADO
+        const audio = document.getElementById("miMusica");
+        const video = document.getElementById("video-fondo");
+        const container = document.getElementById("lyrics-container");
+        const portada = document.getElementById("portada");
+        const boton = document.getElementById("boton-comenzar");
+
+        const lyricsData = [
+            { text: "She told me that she loved me by the water fountain", time: 13.8 },
+            { text: "She told me that she loved me and she didn't love him", time: 17.2 },
+            { text: "And that was really lovely 'cause it was innocent", time: 20.8 },
+            { text: "But now she's got a cup with something else in it", time: 24.2 },
+            { text: "It's getting kind of blurry at a quarter past ten", time: 27.8 },
+            { text: "And he was in a hurry to be touching her skin", time: 31.5 },
+            { text: "She's feeling kind of dirty when she's dancing with him", time: 34.8 },
+            { text: "Forgetting what she told me by the water fountain", time: 38.2 },
+            { text: "Now he's grabbing her hips, and pulling her in", time: 42.1 },
+            { text: "Kissing her lips, and whispering in her ear", time: 45.8 },
+            { text: "And she knows that she shouldn't listen", time: 49.5 },
+            { text: "And that she should be with me by the water fountain", time: 53.0 },
+            { text: "She couldn't be at home in the night time because", time: 56.8 },
+            { text: "It made her feel alone, but at that time she was too young", time: 60.5 },
+            { text: "I was too young", time: 67.5 },
+            { text: "I should've built a home with a fountain for us", time: 71.2 },
+            { text: "The moment that she told me that she was in love too young", time: 74.8 },
+            { text: "I was too young", time: 80.8 },
+            { text: "Too young, too young, too young, young", time: 83.5 },
+            { text: "And if she ever goes back to the water fountain", time: 96.5 },
+            { text: "The handle will be broken and the rust set in", time: 100.5 },
+            { text: "But my hand, it will be open and I'll try to fix it", time: 104.8 },
+            { text: "My heart, it will be open and I'll try to give it", time: 109.0 },
+            { text: "Now I'm grabbing her hips, and pulling her in", time: 112.8 },
+            { text: "Kissing her lips, and whispering in her ear", time: 116.8 },
+            { text: "And I know that it's only a wish", time: 120.5 },
+            { text: "And that we're not standing by the water fountain", time: 124.5 },
+            { text: "Too young, too young, too young, young", time: 129.0 },
+            { text: "She couldn't be at home in the night time because", time: 135.5 },
+            { text: "It made her feel alone, but at that time she was too young", time: 139.5 },
+            { text: "I was too young", time: 146.5 },
+            { text: "I should've built a home with a fountain for us", time: 150.5 },
+            { text: "The moment that she told me that she was in love too young", time: 154.0 },
+            { text: "I was too young", time: 157.5 },
+            { text: "Too young, too young, too young, young", time: 161.0 },
+            { text: "(Too young) I should've built a home with a fountain for us", time: 181.0 },
+            { text: "(Too young) The moment that she told me that she was in love", time: 185.0 },
+            { text: "(Too young) Too young", time: 189.0 },
+            { text: "(Young) I was too young ❤️", time: 192.0 }
+        ];
+
+        function createPetal() {
+            const petal = document.createElement("div");
+            petal.classList.add("petal");
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.animationDuration = (Math.random() * 3 + 5) + "s";
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 8500);
+        }
+
+        function updateLyrics() {
+            const time = audio.currentTime;
+            const index = lyricsData.findIndex((line, i) => {
+                const nextLine = lyricsData[i + 1];
+                return time >= line.time && (!nextLine || time < nextLine.time);
+            });
+            if (index !== -1) {
+                const currentLine = lyricsData[index];
+                const nextLine = lyricsData[index + 1];
+                const duration = nextLine ? (nextLine.time - currentLine.time) : 3.5;
+                if (container.getAttribute("data-index") !== index.toString()) {
+                    container.innerHTML = `<p class="lyrics-line" style="animation-duration: ${duration}s">${currentLine.text}</p>`;
+                    container.setAttribute("data-index", index);
+                }
+            }
+        }
+
+        boton.addEventListener("click", () => {
+            portada.style.opacity = "0";
+            setTimeout(() => {
+                portada.style.display = "none";
+                audio.play();
+                video.play();
+                setInterval(createPetal, 250);
+            }, 1500);
+        });
+
+        audio.addEventListener("timeupdate", updateLyrics);
+        audio.addEventListener("ended", () => {
+            container.style.display = "none";
+            document.getElementById("mensaje-despedida").style.opacity = "1";
+        });
+    </script>
 </body>
 </html>
